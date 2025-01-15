@@ -48,21 +48,48 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
               const rect2 = nextMatchEl.getBoundingClientRect();
               const bracketRect = bracketRef.current!.getBoundingClientRect();
 
-            
-              newLines.push({
-                x1: rect1.right - bracketRect.left, 
-                y1: rect1.top + rect1.height / 2 - bracketRect.top,
-                x2: rect2.left + rect2.width / 2 - bracketRect.left, 
-                y2: rect1.top + rect1.height / 2 - bracketRect.top,
-              });
+              if (matchIndexInCurrentRound % 2 === 0) {
+                const nextMatchEl2 = bracketRef.current!.querySelector(
+                  `[data-match-id="${currentRoundMatches[matchIndexInCurrentRound + 1].id}"]`
+                );
 
-    
-              newLines.push({
-                x1: rect2.left + rect2.width / 2 - bracketRect.left, 
-                y1: rect1.top + rect1.height / 2 - bracketRect.top, 
-                x2: rect2.left + rect2.width / 2 - bracketRect.left, 
-                y2: rect2.top + rect2.height - bracketRect.top, 
-              });
+                if (nextMatchEl2) {
+                  const rect3 = nextMatchEl2.getBoundingClientRect();
+
+                  newLines.push({
+                    x1: rect1.right - bracketRect.left, 
+                    y1: rect1.top + rect1.height / 2 - bracketRect.top,
+                    x2: rect1.right - bracketRect.left + 20, 
+                    y2: rect1.top + rect1.height / 2 - bracketRect.top,
+                  });
+
+                  newLines.push({
+                    x1: rect3.right - bracketRect.left, 
+                    y1: rect3.top + rect3.height / 2 - bracketRect.top,
+                    x2: rect3.right - bracketRect.left + 20, 
+                    y2: rect3.top + rect3.height / 2 - bracketRect.top,
+                  });
+
+                  newLines.push({
+                    x1: rect1.right - bracketRect.left + 20, 
+                    y1: rect1.top + rect1.height / 2 - bracketRect.top,
+                    x2: rect1.right - bracketRect.left + 20, 
+                    y2: rect3.top + rect3.height / 2 - bracketRect.top,
+                  });
+
+
+                  const nextMatchCenterX = rect2.left + rect2.width / 2 - bracketRect.left;
+
+                  const yOffset = (rect3.top + rect3.height / 2 - rect1.top - rect1.height / 2) * 0.5;
+
+                  newLines.push({
+                    x1: rect1.right - bracketRect.left + 20, 
+                    y1: rect3.top + rect3.height / 2 - bracketRect.top - yOffset, 
+                    x2: nextMatchCenterX, 
+                    y2: rect3.top + rect3.height / 2 - bracketRect.top - yOffset, 
+                  });
+                }
+              }
             }
           }
         }
@@ -93,7 +120,7 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
         <div key={roundIndex} className="flex flex-col justify-around mr-8 relative">
           {clientMatches
             .filter((match) => match.tournamentRoundText === `Round ${roundIndex + 1}`)
-            .map((match) => (
+            .map((match, index) => (
               <div
                 key={match.id}
                 data-match-id={match.id}

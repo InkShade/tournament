@@ -21,9 +21,8 @@ export const TournamentBracket: React.FC = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
           <label htmlFor="bracket-size" className="text-lg font-medium">
-            Bracket Size
+            Current Bracket Size - {bracketSize}
           </label>
-          <span className="text-lg font-bold">{bracketSize}</span>
         </div>
         <Slider
           id="bracket-size"
@@ -34,6 +33,11 @@ export const TournamentBracket: React.FC = () => {
           onValueChange={handleSliderChange}
           className="w-full"
         />
+        <div className="flex justify-between mt-2 text-lg font-bold">
+          {bracketSizes.map(size => (
+            <span key={size}>{size}</span>
+          ))}
+        </div>
       </div>
       <Bracket matches={matches} />
     </div>
