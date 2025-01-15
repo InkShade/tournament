@@ -1,10 +1,24 @@
+'use client'
+
 import { TournamentHeader } from "@/components/tournament-header"
 import { TournamentInfo } from "@/components/tournament-info"
 import { TournamentBracket } from "@/components/tournament-bracket"
 import { SideMenu } from "@/components/side-menu"
 import { RightMenu } from "@/components/right-menu"
 
+import React, { useState, useEffect } from "react";
+
 export default function TournamentPage() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); 
+  }, []);
+
+  if (!isClient) {
+    return null; 
+  }
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       <SideMenu />
@@ -49,6 +63,6 @@ export default function TournamentPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 

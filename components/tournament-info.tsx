@@ -1,3 +1,5 @@
+'use client'
+
 export function TournamentInfo() {
   return (
     <div className="relative">
