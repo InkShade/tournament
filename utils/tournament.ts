@@ -14,12 +14,12 @@ export type Match = {
 };
 
 const teamNames = [
-  "Red Dragons", "Blue Sharks", "Golden Eagles", "Silver Wolves", "Iron Titans", "Black Panthers",
-  "Green Giants", "White Tigers", "Crimson Hawks", "Amber Lions", "Emerald Snakes", "Sapphire Owls",
-  "Bronze Bears", "Platinum Foxes", "Ruby Ravens", "Cobalt Dolphins",
-  "Scarlet Cobras", "Azure Falcons", "Ivory Elephants", "Obsidian Wolves", "Fire Foxes", "Shadow Spiders",
-  "Thunder Ravens", "Frost Tigers", "Glacier Panthers", "Amber Scorpions", "Moonlight Owls", "Solar Eagles",
-  "Crimson Rhinos", "Electric Sharks", "Lunar Wolves", "Storm Bears"
+  "John Smith", "Michael Johnson", "David Brown", "Chris Taylor", "James Anderson", "Robert Thomas",
+  "William Jackson", "Joseph White", "Thomas Harris", "Charles Martin", "Mary Clark", "Linda Lewis",
+  "Patricia Roberts", "Jennifer Walker", "Elizabeth Young", "Susan King", "Jessica Scott", "Sarah Adams",
+  "Karen Baker", "Nancy Nelson", "Jessica Carter", "Michael Wright", "Daniel Hill", "William Lopez",
+  "Christopher Young", "Matthew Perez", "Anthony Moore", "Richard Turner", "Andrew Collins", "George Mitchell",
+  "Brian Wilson", "Kevin Lee"
 ];
 
 function getUniqueScores(): [number, number] {

@@ -1,6 +1,4 @@
-'use client'
-
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Match } from '../utils/tournament';
 
 interface BracketProps {
@@ -8,26 +6,121 @@ interface BracketProps {
 }
 
 const Bracket: React.FC<BracketProps> = ({ matches }) => {
-  const rounds = Math.log2(matches.length + 1);
+  const [clientMatches, setClientMatches] = useState(matches);
+  const [lines, setLines] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
+  const bracketRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setClientMatches(matches);
+  }, [matches]);
+
+  useEffect(() => {
+    if (bracketRef.current) {
+      const newLines: { x1: number; y1: number; x2: number; y2: number }[] = [];
+      const matchElements = bracketRef.current.querySelectorAll('[data-match-id]');
+
+      matchElements.forEach((el) => {
+        const matchId = el.getAttribute('data-match-id');
+        const match = clientMatches.find((m) => m.id === matchId);
+
+        if (match && match.tournamentRoundText) {
+          const currentRound = parseInt(match.tournamentRoundText.split(' ')[1]);
+          const nextRound = currentRound + 1;
+
+          const nextRoundMatches = clientMatches.filter((m) => {
+            return parseInt(m.tournamentRoundText.split(' ')[1]) === nextRound;
+          });
+
+          const currentRoundMatches = clientMatches.filter((m) => {
+            return parseInt(m.tournamentRoundText.split(' ')[1]) === currentRound;
+          });
+
+          if (nextRoundMatches.length > 0 && currentRoundMatches.length > 0) {
+            const matchIndexInCurrentRound = currentRoundMatches.indexOf(match);
+            const nextMatchIndex = Math.floor(matchIndexInCurrentRound / 2);
+
+            const nextMatchEl = bracketRef.current!.querySelector(
+              `[data-match-id="${nextRoundMatches[nextMatchIndex].id}"]`
+            );
+
+            if (nextMatchEl) {
+              const rect1 = el.getBoundingClientRect();
+              const rect2 = nextMatchEl.getBoundingClientRect();
+              const bracketRect = bracketRef.current!.getBoundingClientRect();
+
+            
+              newLines.push({
+                x1: rect1.right - bracketRect.left, 
+                y1: rect1.top + rect1.height / 2 - bracketRect.top,
+                x2: rect2.left + rect2.width / 2 - bracketRect.left, 
+                y2: rect1.top + rect1.height / 2 - bracketRect.top,
+              });
+
+    
+              newLines.push({
+                x1: rect2.left + rect2.width / 2 - bracketRect.left, 
+                y1: rect1.top + rect1.height / 2 - bracketRect.top, 
+                x2: rect2.left + rect2.width / 2 - bracketRect.left, 
+                y2: rect2.top + rect2.height - bracketRect.top, 
+              });
+            }
+          }
+        }
+      });
+
+      setLines(newLines);
+    }
+  }, [clientMatches]);
+
+  const rounds = Math.log2(clientMatches.length + 1);
 
   return (
-    <div className="flex overflow-x-auto p-4">
+    <div ref={bracketRef} className="relative flex overflow-x-auto p-4">
+      <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        {lines.map((line, index) => (
+          <line
+            key={index}
+            x1={line.x1}
+            y1={line.y1}
+            x2={line.x2}
+            y2={line.y2}
+            stroke="#CBD5E0"
+            strokeWidth="2"
+          />
+        ))}
+      </svg>
       {Array.from({ length: rounds }, (_, roundIndex) => (
-        <div key={roundIndex} className="flex flex-col justify-around mr-4">
-          {matches
+        <div key={roundIndex} className="flex flex-col justify-around mr-8 relative">
+          {clientMatches
             .filter((match) => match.tournamentRoundText === `Round ${roundIndex + 1}`)
             .map((match) => (
-              <div key={match.id} className="mb-4 bg-white rounded-lg shadow-md p-2 w-48">
-                <div className="text-xs text-gray-500 mb-1">{match.tournamentRoundText}</div>
-                {match.participants.map((participant, index) => (
+              <div
+                key={match.id}
+                data-match-id={match.id}
+                className="relative mb-4 bg-white rounded-lg shadow-md p-4 w-52 border border-gray-200"
+              >
+                <div className="text-sm text-gray-500 mb-2">{match.tournamentRoundText}</div>
+                {match.participants.map((participant, participantIndex) => (
                   <div
                     key={participant.id}
-                    className={`flex justify-between items-center p-1 ${
-                      index === 0 ? 'border-b border-gray-200' : ''
+                    className={`flex justify-between items-center py-1 ${
+                      participantIndex === 0 ? "border-b border-gray-300" : ""
                     }`}
                   >
-                    <span className="text-sm font-medium">{participant.name}</span>
-                    <span className="text-xs text-gray-500">{participant.resultText || '-'}</span>
+                    <span
+                      className={`text-sm font-medium ${
+                        participant.isWinner ? "text-orange-600" : "text-gray-700"
+                      }`}
+                    >
+                      {participant.name}
+                    </span>
+                    <span
+                      className={`text-xs text-gray-500 ${
+                        participant.isWinner ? "text-orange-600" : "text-gray-500"
+                      }`}
+                    >
+                      {participant.resultText || "-"}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -39,4 +132,3 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
 };
 
 export default Bracket;
-
