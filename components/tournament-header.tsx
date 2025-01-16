@@ -1,16 +1,14 @@
-'use client'
-
 import { Search } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 export function TournamentHeader() {
   return (
     <header className="border-b">
-      <div className="flex items-center justify-between px-4 py-2">
+      <div className="max-w-[1400px] mx-auto w-full flex items-center justify-between px-4 py-2">
         <div className="flex items-center space-x-4">
           <div className="h-8 w-8">
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bs0dnyLiYsXuHQOqGzqi3NZSDRc2Dg.png"
+              src="https://icon-library.com/images/image-icon-png/image-icon-png-6.jpg"
               alt="Tournament Logo"
               className="h-full w-full object-contain"
             />
@@ -40,4 +38,3 @@ export function TournamentHeader() {
     </header>
   )
 }
-

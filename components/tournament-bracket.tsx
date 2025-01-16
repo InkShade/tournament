@@ -33,7 +33,7 @@ export const TournamentBracket: React.FC = () => {
           onValueChange={handleSliderChange}
           className="w-full"
         />
-        <div className="flex justify-between mt-2 text-lg font-bold">
+        <div className="flex justify-between mt-2 text-lg font-bold p">
           {bracketSizes.map(size => (
             <span key={size}>{size}</span>
           ))}
