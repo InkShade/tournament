@@ -5,9 +5,12 @@ import { TournamentBracket } from "@/components/tournament-bracket";
 import { SideMenu } from "@/components/side-menu";
 import { RightMenu } from "@/components/right-menu";
 import React, { useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function TournamentPage() {
   const [isClient, setIsClient] = useState(false);
+  const isMobile = useIsMobile();
+
 
   useEffect(() => {
     setIsClient(true);
@@ -17,9 +20,10 @@ export default function TournamentPage() {
     return null;
   }
 
+  
+
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <SideMenu />
       <div className="flex-1 flex flex-col">
         <TournamentHeader />
         <div className=" mx-auto w-full px-4">
@@ -55,7 +59,7 @@ export default function TournamentPage() {
               <TournamentBracket />
             </div>
             <div>
-              <RightMenu />
+              {/* <RightMenu /> */}
             </div>
           </div>
         </div>

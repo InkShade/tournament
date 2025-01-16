@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface MenuItemProps {
   icon: React.ReactNode;
@@ -26,6 +27,19 @@ interface MenuItemProps {
   hasAddButton?: boolean;
   isOpen: boolean;
 }
+
+const menuItems = [
+  { icon: <BarChart2 className="h-6 w-6" />, label: "Dashboard", hasAddButton: false },
+  { icon: <Home className="h-6 w-6" />, label: "Home", hasAddButton: false, isActive: true },
+  { icon: <Network className="h-6 w-6" />, label: "Leagues", hasAddButton: true },
+  { icon: <Trophy className="h-6 w-6" />, label: "Tournaments", hasAddButton: true },
+  { icon: <Users className="h-6 w-6" />, label: "Athletes", hasAddButton: true },
+  { icon: <UserCheck className="h-6 w-6" />, label: "Teams", hasAddButton: false },
+  { icon: <Users className="h-6 w-6" />, label: "Coaches", hasAddButton: false },
+  { icon: <Building2 className="h-6 w-6" />, label: "Clubs", hasAddButton: false },
+  { icon: <Network className="h-6 w-6" />, label: "Federations", hasAddButton: false },
+  { icon: <Newspaper className="h-6 w-6" />, label: "News", hasAddButton: false },
+];
 
 function MenuItem({ icon, label, isActive, hasAddButton, isOpen }: MenuItemProps) {
   return (
@@ -52,19 +66,33 @@ function MenuItem({ icon, label, isActive, hasAddButton, isOpen }: MenuItemProps
 export function SideMenu() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+const isMobile = useIsMobile()
   const toggleDesktopMenu = () => setIsOpen(!isOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
+  const renderMenuItems = (isMobile?: boolean) => (
+    <div className={isMobile ? "p-4 space-y-4" : "p-1"}>
+      {menuItems.map(({ icon, label, hasAddButton }, index) => (
+        <MenuItem
+          key={index}
+          icon={icon}
+          label={label}
+          isActive={label === "Home"}
+          hasAddButton={hasAddButton}
+          isOpen={isOpen}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <>
-      <button
-        className="p-2 text-gray-700 hover:bg-gray-200 rounded-md md:hidden fixed top-4 left-4 z-50"
+      {isMobile && <button
+        className="flex items-center justify-between w-full px-1 py-2 hover:bg-gray-200 rounded-md"
         onClick={toggleMobileMenu}
       >
         <MenuIcon className="h-6 w-6" />
-        <span className="ml-2">Menu</span>
-      </button>
+      </button>}
 
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white">
@@ -74,18 +102,7 @@ export function SideMenu() {
               <X className="h-6 w-6" />
             </button>
           </div>
-          <div className="p-4 space-y-4">
-            <MenuItem icon={<BarChart2 className="h-6 w-6" />} label="Dashboard" isOpen />
-            <MenuItem icon={<Home className="h-6 w-6" />} label="Home" isActive isOpen />
-            <MenuItem icon={<Network className="h-6 w-6" />} label="Leagues" hasAddButton isOpen />
-            <MenuItem icon={<Trophy className="h-6 w-6" />} label="Tournaments" hasAddButton isOpen />
-            <MenuItem icon={<Users className="h-6 w-6" />} label="Athletes" hasAddButton isOpen />
-            <MenuItem icon={<UserCheck className="h-6 w-6" />} label="Teams" isOpen />
-            <MenuItem icon={<Users className="h-6 w-6" />} label="Coaches" isOpen />
-            <MenuItem icon={<Building2 className="h-6 w-6" />} label="Clubs" isOpen />
-            <MenuItem icon={<Network className="h-6 w-6" />} label="Federations" isOpen />
-            <MenuItem icon={<Newspaper className="h-6 w-6" />} label="News" isOpen />
-          </div>
+          {renderMenuItems(true)}
         </div>
       )}
 
@@ -111,18 +128,7 @@ export function SideMenu() {
           <div className="h-16 border-b flex items-center justify-between px-4">
             <h2 className={cn("text-lg font-semibold", !isOpen && "hidden")}>Menu</h2>
           </div>
-          <div className="p-1">
-            <MenuItem icon={<BarChart2 className="h-6 w-6" />} label="Dashboard" isOpen={isOpen} />
-            <MenuItem icon={<Home className="h-6 w-6" />} label="Home" isActive isOpen={isOpen} />
-            <MenuItem icon={<Network className="h-6 w-6" />} label="Leagues" hasAddButton={isOpen} isOpen={isOpen} />
-            <MenuItem icon={<Trophy className="h-6 w-6" />} label="Tournaments" hasAddButton={isOpen} isOpen={isOpen} />
-            <MenuItem icon={<Users className="h-6 w-6" />} label="Athletes" hasAddButton={isOpen} isOpen={isOpen} />
-            <MenuItem icon={<UserCheck className="h-6 w-6" />} label="Teams" isOpen={isOpen} />
-            <MenuItem icon={<Users className="h-6 w-6" />} label="Coaches" isOpen={isOpen} />
-            <MenuItem icon={<Building2 className="h-6 w-6" />} label="Clubs" isOpen={isOpen} />
-            <MenuItem icon={<Network className="h-6 w-6" />} label="Federations" isOpen={isOpen} />
-            <MenuItem icon={<Newspaper className="h-6 w-6" />} label="News" isOpen={isOpen} />
-          </div>
+          {renderMenuItems(false)}
         </div>
       </div>
     </>

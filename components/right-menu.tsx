@@ -2,95 +2,106 @@
 
 import { useState } from "react";
 import {
-  BarChart2,
-  Home,
-  Trophy,
-  Users,
-  UserCheck,
-  Building2,
-  Network,
-  Newspaper,
-  Plus,
-  ChevronLeft,
-  ChevronRight,
   Settings,
   AlertCircle,
   Download,
   Printer,
   Share2,
   Flag,
-  Divide,
+  ChevronLeft,
+  ChevronRight,
+  Menu as MenuIcon,
+  X,
+  MenuSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
-const menuWidth = "64";
-
-interface MenuItemProps {
-  icon: React.ReactNode;
-  label: string;
-  isActive?: boolean;
-  hasAddButton?: boolean;
-  isOpen: boolean;
-}
-
-function MenuItem({ icon, label, isActive, hasAddButton, isOpen }: MenuItemProps) {
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-between px-4 py-2 hover:bg-gray-100 rounded-lg cursor-pointer",
-        isActive && "bg-red-50 text-red-600 hover:bg-red-100",
-        "transition-all duration-300"
-      )}
-    >
-      <div className={isOpen ? "flex items-center gap-4" : "flex items-center justify-center"}>
-        {icon}
-        {isOpen && <span className="font-medium">{label}</span>}
-      </div>
-      {hasAddButton && isOpen && (
-        <button className="p-1 hover:bg-gray-200 rounded">
-          <Plus className="h-3 w-3" />
-        </button>
-      )}
-    </div>
-  );
-}
+const rightMenuItems = [
+  { icon: <Settings className="h-6 w-6" />, label: "Settings" },
+  { icon: <AlertCircle className="h-6 w-6" />, label: "Alerts" },
+  { icon: <Download className="h-6 w-6" />, label: "Downloads" },
+  { icon: <Printer className="h-6 w-6" />, label: "Print" },
+  { icon: <Share2 className="h-6 w-6" />, label: "Share" },
+  { icon: <Flag className="h-6 w-6" />, label: "Reports" },
+];
 
 export function RightMenu() {
   const [isOpen, setIsOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
+
+  const toggleDesktopMenu = () => setIsOpen(!isOpen);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
+  const renderMenuItems = (isMobile?: boolean) => (
+    <div className={isMobile ? "p-4 space-y-4" : "p-1"}>
+      {rightMenuItems.map(({ icon, label }, index) => (
+        <div
+          key={index}
+          className={cn(
+            "flex items-center px-4 py-2 hover:bg-gray-100 rounded-lg cursor-pointer",
+            "transition-all duration-300"
+          )}
+        >
+          <div className={isOpen || isMobile ? "flex items-center gap-4" : "justify-center"}>
+            {icon}
+            {(isOpen || isMobile) && <span className="font-medium">{label}</span>}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
-    <div
-      className={cn(
-        "fixed inset-y-0 right-0 z-40 bg-white transform transition-all duration-500 ease-in-out",
-        isOpen ? `w-${menuWidth}` : "w-16"
+    <>
+      {isMobile && (
+        <button
+          className="p-2 text-black-500 hover:bg-gray-200 rounded-md"
+          onClick={toggleMobileMenu}
+        >
+          <MenuSquare className="h-6 w-6" />
+        </button>
       )}
-    >
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute -left-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? (
-          <ChevronRight className="h-4 w-4" />
-        ) : (
-          <ChevronLeft className="h-4 w-4" />
-        )}
-      </Button>
-      <div className="h-full border-l overflow-y-auto">
-        <div className="h-16 border-b flex items-center justify-between px-4">
-          <h2 className={cn("text-lg font-semibold", !isOpen && "hidden")}>Actions</h2>
+
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-white">
+          <div className="flex justify-between items-center px-4 py-2 border-b">
+            <h2 className="text-lg font-semibold">Actions</h2>
+            <button onClick={toggleMobileMenu} className="p-2 hover:bg-gray-200 rounded-md">
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          {renderMenuItems(true)}
         </div>
-        <div className="p-1">
-          <MenuItem icon={<Download className="h-6 w-6" />} label="Download" isOpen={isOpen} />
-          <MenuItem icon={<Share2 className="h-6 w-6" />} label="Share" isOpen={isOpen} />
-          <MenuItem icon={<Printer  className="h-6 w-6" />} label="Print" isOpen={isOpen} />
-          <MenuItem icon={<Flag  className="h-6 w-6" />} label="Report" isOpen={isOpen} />
-          <MenuItem icon={<AlertCircle  className="h-6 w-6" />} label="Alerts" isOpen={isOpen} />
-          <MenuItem icon={<Settings className="h-6 w-6" />} label="Settings" isOpen={isOpen} />
+      )}
+
+      <div
+        className={cn(
+          "fixed inset-y-0 right-0 z-40 bg-white transform transition-all duration-500 ease-in-out md:block hidden",
+          isOpen ? "w-64" : "w-16"
+        )}
+      >
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute -left-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm"
+          onClick={toggleDesktopMenu}
+        >
+          {isOpen ? (
+            <ChevronRight className="h-4 w-4" />
+          ) : (
+            <ChevronLeft className="h-4 w-4" />
+          )}
+        </Button>
+        <div className="h-full border-l overflow-y-auto">
+          <div className="h-16 border-b flex items-center justify-between px-4">
+            <h2 className={cn("text-lg font-semibold", !isOpen && "hidden")}>Actions</h2>
+          </div>
+          {renderMenuItems(false)}
         </div>
       </div>
-    </div>
+    </>
   );
 }
