@@ -24,7 +24,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-const menuWidth = "64"; // Общая ширина для обеих панелей
+const menuWidth = "64";
 
 interface MenuItemProps {
   icon: React.ReactNode;

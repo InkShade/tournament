@@ -1,17 +1,13 @@
-'use client'
+"use client";
 
 export function TournamentInfo() {
   return (
-    <div className="relative">
+    <div className=" mx-auto relative mx">
       <div className="h-48 overflow-hidden">
-        <img
-          src="/placeholder.svg?height=400&width=1200"
-          alt="Tennis Tournament"
-          className="w-full object-cover"
-        />
+        <img src="/placeholder.svg?height=400&width=1200" alt="Tennis Tournament" className="w-full object-cover" />
       </div>
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-        <div className="flex items-center space-x-4">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 ">
+        <div className="flex items-center space-x-4 max-w-[1400px] mx-auto">
           <div className="h-16 w-16 rounded-full bg-white p-2">
             <img
               src="/placeholder.svg?height=100&width=100"
@@ -29,6 +25,5 @@ export function TournamentInfo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

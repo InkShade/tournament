@@ -1,20 +1,20 @@
-'use client'
-import { TournamentHeader } from "@/components/tournament-header"
-import { TournamentInfo } from "@/components/tournament-info"
-import { TournamentBracket } from "@/components/tournament-bracket"
-import { SideMenu } from "@/components/side-menu"
-import { RightMenu } from "@/components/right-menu"
-import React, { useState, useEffect } from "react"
+"use client";
+import { TournamentHeader } from "@/components/tournament-header";
+import { TournamentInfo } from "@/components/tournament-info";
+import { TournamentBracket } from "@/components/tournament-bracket";
+import { SideMenu } from "@/components/side-menu";
+import { RightMenu } from "@/components/right-menu";
+import React, { useState, useEffect } from "react";
 
 export default function TournamentPage() {
-  const [isClient, setIsClient] = useState(false)
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
 
   if (!isClient) {
-    return null
+    return null;
   }
 
   return (
@@ -22,11 +22,11 @@ export default function TournamentPage() {
       <SideMenu />
       <div className="flex-1 flex flex-col">
         <TournamentHeader />
-        <div className="max-w-[1400px] mx-auto w-full px-4">
+        <div className=" mx-auto w-full px-4">
           <TournamentInfo />
           <div className="flex-1 flex overflow-hidden">
             <div className="flex-1 flex flex-col">
-              <div className="mb-6 flex items-center space-x-4 border-b pb-4 overflow-x-auto">
+              <div className="mb-6 flex items-center space-x-4 border-b pb-4 overflow-x-auto mx-auto">
                 <button className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 whitespace-nowrap">
                   General
                 </button>
@@ -54,12 +54,12 @@ export default function TournamentPage() {
               </div>
               <TournamentBracket />
             </div>
-            <div className="hidden lg:block">
+            <div>
               <RightMenu />
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
