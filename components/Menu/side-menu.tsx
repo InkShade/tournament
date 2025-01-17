@@ -66,7 +66,7 @@ function MenuItem({ icon, label, isActive, hasAddButton, isOpen }: MenuItemProps
 export function SideMenu() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
   const toggleDesktopMenu = () => setIsOpen(!isOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -87,12 +87,14 @@ const isMobile = useIsMobile()
 
   return (
     <>
-      {isMobile && <button
-        className="flex items-center justify-between w-full px-1 py-2 hover:bg-gray-200 rounded-md"
-        onClick={toggleMobileMenu}
-      >
-        <MenuIcon className="h-6 w-6" />
-      </button>}
+      {isMobile && (
+        <button
+          className="flex items-center justify-between w-full px-1 py-2 hover:bg-gray-200 rounded-md"
+          onClick={toggleMobileMenu}
+        >
+          <MenuIcon className="h-6 w-6" />
+        </button>
+      )}
 
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white">
@@ -118,15 +120,11 @@ const isMobile = useIsMobile()
           className="absolute -right-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm"
           onClick={toggleDesktopMenu}
         >
-          {isOpen ? (
-            <ChevronLeft className="h-4 w-4" />
-          ) : (
-            <ChevronRight className="h-4 w-4" />
-          )}
+          {isOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
         </Button>
         <div className="h-full border-r overflow-y-auto">
           <div className="h-16 border-b flex items-center justify-between px-4">
-            <h2 className={cn("text-lg font-semibold", !isOpen && "hidden")}>Menu</h2>
+            <h2 className={cn(!isOpen && "hidden")}>Menu</h2>
           </div>
           {renderMenuItems(false)}
         </div>

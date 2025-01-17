@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Match } from '../utils/tournament';
+import React, { useEffect, useState, useRef } from "react";
+import { Match } from "../../utils/tournament";
 
 interface BracketProps {
   matches: Match[];
@@ -17,22 +17,22 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
   useEffect(() => {
     if (bracketRef.current) {
       const newLines: { x1: number; y1: number; x2: number; y2: number }[] = [];
-      const matchElements = bracketRef.current.querySelectorAll('[data-match-id]');
+      const matchElements = bracketRef.current.querySelectorAll("[data-match-id]");
 
       matchElements.forEach((el) => {
-        const matchId = el.getAttribute('data-match-id');
+        const matchId = el.getAttribute("data-match-id");
         const match = clientMatches.find((m) => m.id === matchId);
 
         if (match && match.tournamentRoundText) {
-          const currentRound = parseInt(match.tournamentRoundText.split(' ')[1]);
+          const currentRound = parseInt(match.tournamentRoundText.split(" ")[1]);
           const nextRound = currentRound + 1;
 
           const nextRoundMatches = clientMatches.filter((m) => {
-            return parseInt(m.tournamentRoundText.split(' ')[1]) === nextRound;
+            return parseInt(m.tournamentRoundText.split(" ")[1]) === nextRound;
           });
 
           const currentRoundMatches = clientMatches.filter((m) => {
-            return parseInt(m.tournamentRoundText.split(' ')[1]) === currentRound;
+            return parseInt(m.tournamentRoundText.split(" ")[1]) === currentRound;
           });
 
           if (nextRoundMatches.length > 0 && currentRoundMatches.length > 0) {
@@ -57,36 +57,35 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
                   const rect3 = nextMatchEl2.getBoundingClientRect();
 
                   newLines.push({
-                    x1: rect1.right - bracketRect.left, 
+                    x1: rect1.right - bracketRect.left,
                     y1: rect1.top + rect1.height / 2 - bracketRect.top,
-                    x2: rect1.right - bracketRect.left + 20, 
+                    x2: rect1.right - bracketRect.left + 20,
                     y2: rect1.top + rect1.height / 2 - bracketRect.top,
                   });
 
                   newLines.push({
-                    x1: rect3.right - bracketRect.left, 
+                    x1: rect3.right - bracketRect.left,
                     y1: rect3.top + rect3.height / 2 - bracketRect.top,
-                    x2: rect3.right - bracketRect.left + 20, 
+                    x2: rect3.right - bracketRect.left + 20,
                     y2: rect3.top + rect3.height / 2 - bracketRect.top,
                   });
 
                   newLines.push({
-                    x1: rect1.right - bracketRect.left + 20, 
+                    x1: rect1.right - bracketRect.left + 20,
                     y1: rect1.top + rect1.height / 2 - bracketRect.top,
-                    x2: rect1.right - bracketRect.left + 20, 
+                    x2: rect1.right - bracketRect.left + 20,
                     y2: rect3.top + rect3.height / 2 - bracketRect.top,
                   });
-
 
                   const nextMatchCenterX = rect2.left + rect2.width / 2 - bracketRect.left;
 
                   const yOffset = (rect3.top + rect3.height / 2 - rect1.top - rect1.height / 2) * 0.5;
 
                   newLines.push({
-                    x1: rect1.right - bracketRect.left + 20, 
-                    y1: rect3.top + rect3.height / 2 - bracketRect.top - yOffset, 
-                    x2: nextMatchCenterX, 
-                    y2: rect3.top + rect3.height / 2 - bracketRect.top - yOffset, 
+                    x1: rect1.right - bracketRect.left + 20,
+                    y1: rect3.top + rect3.height / 2 - bracketRect.top - yOffset,
+                    x2: nextMatchCenterX,
+                    y2: rect3.top + rect3.height / 2 - bracketRect.top - yOffset,
                   });
                 }
               }
@@ -105,15 +104,7 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
     <div ref={bracketRef} className="relative flex overflow-x-auto p-4">
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         {lines.map((line, index) => (
-          <line
-            key={index}
-            x1={line.x1}
-            y1={line.y1}
-            x2={line.x2}
-            y2={line.y2}
-            stroke="#CBD5E0"
-            strokeWidth="2"
-          />
+          <line key={index} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} stroke="#CBD5E0" strokeWidth="2" />
         ))}
       </svg>
       {Array.from({ length: rounds }, (_, roundIndex) => (
@@ -135,16 +126,12 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
                     }`}
                   >
                     <span
-                      className={`text-sm font-medium ${
-                        participant.isWinner ? "text-orange-600" : "text-gray-700"
-                      }`}
+                      className={`text-sm font-medium ${participant.isWinner ? "text-orange-600" : "text-gray-700"}`}
                     >
                       {participant.name}
                     </span>
                     <span
-                      className={`text-xs text-gray-500 ${
-                        participant.isWinner ? "text-orange-600" : "text-gray-500"
-                      }`}
+                      className={`text-xs text-gray-500 ${participant.isWinner ? "text-orange-600" : "text-gray-500"}`}
                     >
                       {participant.resultText || "-"}
                     </span>

@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import { Slider } from "@/components/ui/slider"
-import Bracket from './tournament-matches';
-import { generateBracket } from '../utils/tournament';
+import React, { useState } from "react";
+import { Slider } from "@/components/ui/slider";
+import Bracket from "./tournament-matches";
+import { generateBracket } from "../../utils/tournament";
 
 const bracketSizes = [2, 4, 8, 16, 32];
 
@@ -34,7 +34,7 @@ export const TournamentBracket: React.FC = () => {
           className="w-full"
         />
         <div className="flex justify-between mt-2 text-lg font-bold p">
-          {bracketSizes.map(size => (
+          {bracketSizes.map((size) => (
             <span key={size}>{size}</span>
           ))}
         </div>
@@ -43,4 +43,3 @@ export const TournamentBracket: React.FC = () => {
     </div>
   );
 };
-
