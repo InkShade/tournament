@@ -31,7 +31,7 @@ function getUniqueScores(): [number, number] {
   return [score1, score2];
 }
 
-const fixedScores: Record<string, [number, number]> = {}; // Переместите фиксированные очки в глобальную область
+const fixedScores: Record<string, [number, number]> = {};
 
 export function generateBracket(size: number): Match[] {
   const rounds = Math.log2(size);

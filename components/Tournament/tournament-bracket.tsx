@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "@nextui-org/react";
 import Bracket from "./tournament-matches";
 import { generateBracket } from "../../utils/tournament";
 
@@ -9,35 +9,36 @@ const bracketSizes = [2, 4, 8, 16, 32];
 
 export const TournamentBracket: React.FC = () => {
   const [bracketSize, setBracketSize] = useState(8);
+
   const matches = generateBracket(bracketSize);
 
-  const handleSliderChange = (value: number[]) => {
-    setBracketSize(bracketSizes[value[0]]);
+  const handleSliderChange = (value: number | number[]) => {
+    const newValue = Array.isArray(value) ? value[0] : value;
+    const sizeIndex = Math.round(newValue * (bracketSizes.length - 1));
+    setBracketSize(bracketSizes[sizeIndex]);
   };
+
+  const marks = bracketSizes.map((size, index) => ({
+    value: index / (bracketSizes.length - 1),
+    label: `${size}`,
+  }));
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Tournament Bracket</h1>
-      <div className="mb-8">
+      <div className="">
         <div className="flex items-center justify-between mb-2">
-          <label htmlFor="bracket-size" className="text-lg font-medium">
-            Current Bracket Size - {bracketSize}
-          </label>
+        <label className="text-lg font-medium">Bracket Size</label>
+        <span className="text-sm text-muted-foreground">{bracketSize} Players</span>
         </div>
         <Slider
-          id="bracket-size"
-          min={0}
-          max={4}
-          step={1}
-          value={[bracketSizes.indexOf(bracketSize)]}
-          onValueChange={handleSliderChange}
-          className="w-full"
+          defaultValue={(bracketSizes.indexOf(8)) / (bracketSizes.length - 1)}
+          marks={marks}
+          maxValue={1}
+          minValue={0}
+          step={1 / (bracketSizes.length - 1)}
+          onChange={handleSliderChange}
         />
-        <div className="flex justify-between mt-2 text-lg font-bold p">
-          {bracketSizes.map((size) => (
-            <span key={size}>{size}</span>
-          ))}
-        </div>
       </div>
       <Bracket matches={matches} />
     </div>
