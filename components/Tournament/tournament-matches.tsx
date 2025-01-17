@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Match } from "../../utils/tournament";
 
-interface BracketProps {
+interface GridProps {
   matches: Match[];
 }
 
-const Bracket: React.FC<BracketProps> = ({ matches }) => {
+const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
   const [clientMatches, setClientMatches] = useState(matches);
   const [lines, setLines] = useState<{ x1: number; y1: number; x2: number; y2: number }[]>([]);
   const bracketRef = useRef<HTMLDivElement>(null);
@@ -160,4 +160,4 @@ const Bracket: React.FC<BracketProps> = ({ matches }) => {
   );
 };
 
-export default Bracket;
+export default TournamentGrid;

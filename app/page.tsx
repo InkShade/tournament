@@ -18,12 +18,11 @@ export default function TournamentPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="flex-1 flex flex-col">
         <TournamentHeader />
-        <div className="mx-auto w-full px-4 ">
+        <div className="mx-auto px-4 ">
           <TournamentInfo />
-          <TournamentMenu />
           <TournamentBracket />
         </div>
       </div>

@@ -8,15 +8,15 @@ export function TournamentHeader() {
   const isMobile = useIsMobile();
 
   return (
-    <header className="border-b py-2.5 bg-white">
-      <div className="w-fit mx-auto w-full flex justify-between px-4 space-x-6 pb-0.5">
+    <header className="border-b h-16">
+      <div className="w-fit mx-auto flex justify-between px-4 space-x-6 py-2">
         {isMobile ? (
           <div className="w-full flex items-center">
             <div className="flex items-center">
               <SideMenu />
             </div>
 
-            <div className="flex-1 flex justify-center">
+            <div className="flex flex justify-center">
               <div className="relative flex items-center">
                 <Search className="absolute left-2 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
                 <input
