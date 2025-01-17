@@ -3,13 +3,12 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 
 export function TournamentMenu() {
   return (
-    <Menubar className="space-x-4 justify-center">
+    <Menubar className="md:sticky top-0 z-10 shadow-md space-x-4 justify-center">
       <MenubarMenu>
         <MenubarTrigger className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 cursor-pointer">
           General

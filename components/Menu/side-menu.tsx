@@ -124,7 +124,7 @@ export function SideMenu() {
         </Button>
         <div className="h-full border-r overflow-y-auto">
           <div className="h-16 border-b flex items-center justify-between px-4">
-            <h2 className={cn(!isOpen && "hidden")}>Menu</h2>
+            <h2 className={cn("text-lg font-semibold", !isOpen && "hidden")}>Menu</h2>
           </div>
           {renderMenuItems(false)}
         </div>

@@ -2,17 +2,14 @@ import { MenuIcon, MoreVertical, PlusCircle, Search, User } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SideMenu } from "../Menu/side-menu";
 import { RightMenu } from "../Menu/right-menu";
-import { useState } from "react";
 import { DropdownMenu } from "./dropdown-menu";
 
 export function TournamentHeader() {
   const isMobile = useIsMobile();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="border-b">
-      <div className="max-w-[1400px] mx-auto w-full flex items-center px-4 py-2">
+    <header className="border-b py-2.5 bg-white">
+      <div className="w-fit mx-auto w-full flex justify-between px-4 space-x-6 pb-0.5">
         {isMobile ? (
           <div className="w-full flex items-center">
             <div className="flex items-center">

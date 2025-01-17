@@ -4,7 +4,7 @@ export function TournamentInfo() {
   return (
     <div className=" mx-auto relative mx">
       <div className="h-48 overflow-hidden">
-        <img src="/hero.svg?height=400&width=1200" alt="Tennis Tournament" className="w-full object-cover" />
+        <img src="/hero.jpg?height=400&width=1200" alt="Tennis Tournament" className="w-full object-cover" />
       </div>
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 ">
         <div className="flex items-center space-x-4 max-w-[1400px] mx-auto">
