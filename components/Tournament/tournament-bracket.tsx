@@ -34,12 +34,14 @@ export const TournamentBracket: React.FC = () => {
     <div className={isMobile ? "container mx-auto px-4 py-8" : "container mx-auto px-4"}>
       <div className="flex flex-col md:flex-row">
         {isMobile && (
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-6 ">
             <h1 className="text-2xl font-bold">Draws</h1>
+            <div className="hover:bg-gray-200 rounded-lg p-2 mx-1">
             <PencilRuler
-              className="mt-1 ml-2 cursor-pointer rounded-lg"
+              className="cursor-pointer rounded-lg"
               onClick={toggleSliderModal}
             />
+            </div>
             <TournamentMenu />
           </div>
         )}
@@ -63,7 +65,7 @@ export const TournamentBracket: React.FC = () => {
               onValueChange={handleSliderChange}
               min={0}
               max={1}
-              className="w-[640px] w-full mx-auto cursor-pointer"
+              className="w-[640px] mx-auto cursor-pointer"
             />
             <div className="flex justify-between text-sm mt-2 w-[640px] mx-auto w-full">
               {bracketSizes.map((size) => (
@@ -77,7 +79,7 @@ export const TournamentBracket: React.FC = () => {
       </div>
 
       <Bracket matches={matches} />
-      
+
       {/* Modal window */}
       {isMobile && showSliderModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

@@ -118,7 +118,10 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
   };
 
   return (
-    <div ref={bracketRef} className="relative flex overflow-x-auto p-4">
+    <div
+      ref={bracketRef}
+      className="relative flex overflow-x-auto p-4 md:max-w-[768px] lg:max-w-none mx-auto whitespace-nowrap"
+    >
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         {lines.map((line, index) => (
           <line key={index} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} stroke="#CBD5E0" strokeWidth="2" />
@@ -141,12 +144,22 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
                 {match.participants.map((participant, participantIndex) => (
                   <div
                     key={participant.id}
-                    className={`flex justify-between items-center py-1 ${participantIndex === 0 ? "border-b border-gray-300" : ""}`}
+                    className={`flex justify-between items-center py-1 ${
+                      participantIndex === 0 ? "border-b border-gray-300" : ""
+                    }`}
                   >
-                    <span className={`text-sm font-medium ${participant.isWinner ? "text-orange-600" : "text-gray-700"}`}>
+                    <span
+                      className={`text-sm font-medium ${
+                        participant.isWinner ? "text-orange-600" : "text-gray-700"
+                      }`}
+                    >
                       {participant.name}
                     </span>
-                    <span className={`text-xs text-gray-500 ${participant.isWinner ? "text-orange-600" : "text-gray-500"}`}>
+                    <span
+                      className={`text-xs text-gray-500 ${
+                        participant.isWinner ? "text-orange-600" : "text-gray-500"
+                      }`}
+                    >
                       {participant.resultText || "-"}
                     </span>
                   </div>

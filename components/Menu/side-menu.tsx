@@ -64,11 +64,9 @@ function MenuItem({ icon, label, isActive, hasAddButton, isOpen }: MenuItemProps
 }
 
 export function SideMenu() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);  // Unified state for both mobile and desktop
   const isMobile = useIsMobile();
-  const toggleDesktopMenu = () => setIsOpen(!isOpen);
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMenu = () => setIsMenuOpen((prevState) => !prevState);
 
   const renderMenuItems = (isMobile?: boolean) => (
     <div className={isMobile ? "p-4 space-y-4" : "p-1"}>
@@ -79,7 +77,7 @@ export function SideMenu() {
           label={label}
           isActive={label === "Home"}
           hasAddButton={hasAddButton}
-          isOpen={isOpen}
+          isOpen={isMenuOpen}
         />
       ))}
     </div>
@@ -90,17 +88,17 @@ export function SideMenu() {
       {isMobile && (
         <button
           className="flex items-center justify-between w-full px-1 py-2 hover:bg-gray-200 rounded-md"
-          onClick={toggleMobileMenu}
+          onClick={toggleMenu}
         >
           <MenuIcon className="h-6 w-6" />
         </button>
       )}
 
-      {isMobileMenuOpen && (
+      {isMobile && isMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white">
           <div className="flex justify-between items-center px-4 py-2 border-b">
             <h2 className="text-lg font-semibold">Menu</h2>
-            <button onClick={toggleMobileMenu} className="p-2 hover:bg-gray-200 rounded-md">
+            <button onClick={toggleMenu} className="p-2 hover:bg-gray-200 rounded-md">
               <X className="h-6 w-6" />
             </button>
           </div>
@@ -108,27 +106,29 @@ export function SideMenu() {
         </div>
       )}
 
-      <div
-        className={cn(
-          "fixed inset-y-0 left-0 z-40 bg-white transform transition-all duration-500 ease-in-out md:block hidden",
-          isOpen ? "w-64" : "w-16"
-        )}
-      >
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute -right-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm"
-          onClick={toggleDesktopMenu}
+      {!isMobile && (
+        <div
+          className={cn(
+            "fixed inset-y-0 left-0 z-40 bg-white transform transition-all duration-500 ease-in-out md:block hidden",
+            isMenuOpen ? "w-64" : "w-16"
+          )}
         >
-          {isOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-        </Button>
-        <div className="h-full border-r overflow-y-auto">
-          <div className="h-16 border-b flex items-center justify-between px-4">
-            <h2 className={cn("text-lg font-semibold", !isOpen && "hidden")}>Menu</h2>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute -right-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm"
+            onClick={toggleMenu}
+          >
+            {isMenuOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+          </Button>
+          <div className="h-full border-r overflow-y-auto">
+            <div className="h-16 border-b flex items-center justify-between px-4">
+              <h2 className={cn("text-lg font-semibold", !isMenuOpen && "hidden")}>Menu</h2>
+            </div>
+            {renderMenuItems(false)}
           </div>
-          {renderMenuItems(false)}
         </div>
-      </div>
+      )}
     </>
   );
 }
