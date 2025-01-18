@@ -4,16 +4,21 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Home, Users, Layers, Shuffle, Clock, MoreHorizontal, MoreVertical } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuContent } from "@/components/ui/dropdown-menu";
+import {
+  Home,
+  Users,
+  Layers,
+  Shuffle,
+  Clock,
+  MoreVertical,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
-
-const menuItemClass =
-  "px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 rounded-full cursor-pointer transition-colors duration-300";
-const iconClass = "mr-2 inline h-4 w-4 transition-transform duration-300 ";
-
-const activeClass = "text-white bg-red-600 hover:text-black";
-const inactiveClass = "text-gray-400 text-black";
 
 const MenuItem = ({
   Icon,
@@ -25,38 +30,48 @@ const MenuItem = ({
   text: string;
   isActive?: boolean;
   isMobile?: boolean;
-}) =>
-  (
+}) => (
   <div
-    className={`${menuItemClass} ${isActive && !isMobile ? activeClass : inactiveClass}`}
+    className={`px-4 py-2 text-sm font-medium text-gray-600 ${
+      isActive && !isMobile
+        ? "text-white bg-red-600 hover:text-black"
+        : "text-gray-400 text-black"
+    }`}
   >
-    <Icon className={`${iconClass} ${isActive && !isMobile ? "text-black" : "text-black"}`} />
+    <Icon
+      className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
+        isActive && !isMobile ? "text-black" : "text-black"
+      }`}
+    />
     {text}
   </div>
 );
 
 export function TournamentMenu() {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
   const menuItems = [
-    { Icon: Home, text: 'General' },
-    { Icon: Users, text: 'Participants' },
-    { Icon: Layers, text: 'Groups' },
-    { Icon: Shuffle, text: 'Draws', isActive: true },
-    { Icon: Clock, text: 'Order of Play' },
+    { Icon: Home, text: "General" },
+    { Icon: Users, text: "Participants" },
+    { Icon: Layers, text: "Groups" },
+    { Icon: Shuffle, text: "Draws", isActive: true },
+    { Icon: Clock, text: "Order of Play" },
   ];
 
   return (
     <div className="md:sticky top-0 z-10 m-check">
       {isMobile ? (
-        <div className="md:hidden flex items-center space-x-2rounded-lg hover:bg-gray-200">
+        <div className="md:hidden flex items-center space-x-2 rounded-lg">
           <DropdownMenu>
             <DropdownMenuTrigger className="p-2 text-gray-600">
               <MoreVertical />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-48">
               {menuItems.map((item, index) => (
-                <DropdownMenuItem key={index} className={menuItemClass}>
-                  <MenuItem Icon={item.Icon} text={item.text}/>
+                <DropdownMenuItem
+                  key={index}
+                  className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 rounded-full cursor-pointer transition-colors duration-300"
+                >
+                  <MenuItem Icon={item.Icon} text={item.text} />
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -68,8 +83,21 @@ export function TournamentMenu() {
             <NavigationMenuList className="flex justify-center space-x-4">
               {menuItems.map((item, index) => (
                 <NavigationMenuItem key={index}>
-                  <NavigationMenuLink className="p-2">
-                    <MenuItem Icon={item.Icon} text={item.text} isActive={item.isActive} />
+                  <NavigationMenuLink className="p-2 rounded-full cursor-pointer transition-colors duration-300">
+                    <div
+                      className={`px-4 py-2 text-sm font-medium text-gray-600 rounded-full cursor-pointer transition-colors duration-300 hover:bg-gray-200 ${
+                        item.isActive
+                          ? "text-white bg-red-600 hover:text-black"
+                          : "text-gray-400 text-black"
+                      }`}
+                    >
+                      <item.Icon
+                        className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
+                          item.isActive ? "text-black" : "text-black"
+                        }`}
+                      />
+                      {item.text}
+                    </div>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}

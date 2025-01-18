@@ -3,7 +3,6 @@
 import { TournamentHeader } from "@/components/Header/header";
 import { TournamentInfo } from "@/components/Tournament/tournament-info";
 import { TournamentBracket } from "@/components/Tournament/tournament-bracket";
-import { TournamentMenu } from "@/components/Tournament/tournament-menu";
 import { useEffect, useState } from "react";
 
 export default function TournamentPage() {

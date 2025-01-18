@@ -10,9 +10,8 @@ import {
   Flag,
   ChevronLeft,
   ChevronRight,
-  Menu as MenuIcon,
-  X,
   MenuSquare,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -35,16 +34,10 @@ export function RightMenu() {
   const toggleDesktopMenu = () => setIsOpen(!isOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  const renderMenuItems = (isMobile?: boolean) => (
+  const renderMenuItems = (isMobile: boolean) => (
     <div className={isMobile ? "p-4 space-y-4" : "p-1"}>
       {rightMenuItems.map(({ icon, label }, index) => (
-        <div
-          key={index}
-          className={cn(
-            "flex items-center px-4 py-2 hover:bg-gray-100 rounded-lg cursor-pointer",
-            "transition-all duration-300"
-          )}
-        >
+        <div key={index} className={cn("flex items-center px-4 py-2 hover:bg-gray-100 rounded-lg cursor-pointer", "transition-all duration-300")}>
           <div className={isOpen || isMobile ? "flex items-center gap-4" : "justify-center"}>
             {icon}
             {(isOpen || isMobile) && <span className="font-medium">{label}</span>}
@@ -57,14 +50,10 @@ export function RightMenu() {
   return (
     <>
       {isMobile && (
-        <button
-          className="p-2 text-black-500 hover:bg-gray-200 rounded-md"
-          onClick={toggleMobileMenu}
-        >
+        <button className="p-2 text-black-500 hover:bg-gray-200 rounded-md" onClick={toggleMobileMenu}>
           <MenuSquare className="h-6 w-6" />
         </button>
       )}
-
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white">
           <div className="flex justify-between items-center px-4 py-2 border-b">
@@ -76,24 +65,9 @@ export function RightMenu() {
           {renderMenuItems(true)}
         </div>
       )}
-
-      <div
-        className={cn(
-          "fixed inset-y-0 right-0 z-40 bg-white transform transition-all duration-500 ease-in-out md:block hidden",
-          isOpen ? "w-64" : "w-16"
-        )}
-      >
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute -left-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm"
-          onClick={toggleDesktopMenu}
-        >
-          {isOpen ? (
-            <ChevronRight className="h-4 w-4" />
-          ) : (
-            <ChevronLeft className="h-4 w-4" />
-          )}
+      <div className={cn("fixed inset-y-0 right-0 z-40 bg-white transform transition-all duration-500 ease-in-out md:block hidden", isOpen ? "w-64" : "w-16")}>
+        <Button variant="ghost" size="icon" className="absolute -left-3 top-[72px] z-50 h-6 w-6 rounded-full border bg-background p-0 shadow-sm" onClick={toggleDesktopMenu}>
+          {isOpen ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
         </Button>
         <div className="h-full border-l overflow-y-auto">
           <div className="h-16 border-b flex items-center justify-between px-4">
