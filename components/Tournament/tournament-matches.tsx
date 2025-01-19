@@ -8,7 +8,7 @@ interface GridProps {
 const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
   const [clientMatches, setClientMatches] = useState(matches);
   const [lines, setLines] = useState<
-    { x1: number; y1: number; x2: number; y2: number; stroke: string }[]
+    { x1: number; y1: number; x2: number; y2: number; }[]
   >([]);
   const bracketRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,6 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
         y1: number;
         x2: number;
         y2: number;
-        stroke: string;
       }[] = [];
       const matchElements =
         bracketRef.current.querySelectorAll("[data-match-id]");
@@ -90,7 +89,7 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
                         rect1.height / 2 -
                         bracketRect.top +
                         bracketRef.current!.scrollTop,
-                      stroke: "#FF0000",
+
                     },
                     {
                       x1:
@@ -112,7 +111,6 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
                         rect3.height / 2 -
                         bracketRect.top +
                         bracketRef.current!.scrollTop,
-                      stroke: "#FF0000",
                     },
                     {
                       x1:
@@ -135,7 +133,6 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
                         rect3.height / 2 -
                         bracketRect.top +
                         bracketRef.current!.scrollTop,
-                      stroke: "#FF0000",
                     },
                     {
                       x1:
@@ -168,7 +165,6 @@ const TournamentGrid: React.FC<GridProps> = ({ matches }) => {
                           rect1.height / 2) *
                           0.5 +
                         bracketRef.current!.scrollTop,
-                      stroke: "#FF0000",
                     }
                   );
                 }

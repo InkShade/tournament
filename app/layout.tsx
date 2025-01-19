@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Tournament",
-  description: "Tournament application - created with v0",
+  description: "Technical assignment for a tennis tournament",
 };
 
 export default function RootLayout({
