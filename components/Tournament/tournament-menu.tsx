@@ -40,7 +40,30 @@ const MenuItem = ({
   >
     <Icon
       className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
-        isActive && !isMobile ? "text-red-600" : "text-black"
+        isActive && !isMobile ? "text-gray-600" : "text-black"
+      }`}
+    />
+    {text}
+  </div>
+);
+
+const IconWithText = ({
+  Icon,
+  text,
+  isActive,
+}: {
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  text: string;
+  isActive?: boolean;
+}) => (
+  <div
+    className={`px-4 py-2 text-sm font-medium text-gray-600 rounded-full cursor-pointer transition-colors duration-300 hover:bg-gray-200 ${
+      isActive ? "text-white bg-red-600 hover:text-red-600" : "text-gray-600"
+    }`}
+  >
+    <Icon
+      className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
+        isActive ? "text-white-600" : "text-black"
       }`}
     />
     {text}
@@ -84,20 +107,11 @@ export function TournamentMenu() {
               {menuItems.map((item, index) => (
                 <NavigationMenuItem key={index}>
                   <NavigationMenuLink className="p-2 rounded-full cursor-pointer transition-colors duration-300">
-                    <div
-                      className={`px-4 py-2 text-sm font-medium text-gray-600 rounded-full cursor-pointer transition-colors duration-300 hover:bg-gray-200 ${
-                        item.isActive
-                          ? "text-white bg-red-600 hover:text-red-600"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      <item.Icon
-                        className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
-                          item.isActive ? "text-red-600" : "text-black"
-                        }`}
-                      />
-                      {item.text}
-                    </div>
+                    <IconWithText
+                      Icon={item.Icon}
+                      text={item.text}
+                      isActive={item.isActive}
+                    />
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
