@@ -32,15 +32,15 @@ const MenuItem = ({
   isMobile?: boolean;
 }) => (
   <div
-    className={`px-4 py-2 text-sm font-medium text-gray-600 ${
+    className={`px-4 py-2 text-sm font-medium ${
       isActive && !isMobile
-        ? "text-white bg-red-600 hover:text-black"
-        : "text-gray-400 text-black"
+        ? "text-white bg-red-600 hover:text-red-600"
+        : "text-gray-600"
     }`}
   >
     <Icon
       className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
-        isActive && !isMobile ? "text-black" : "text-black"
+        isActive && !isMobile ? "text-red-600" : "text-black"
       }`}
     />
     {text}
@@ -87,13 +87,13 @@ export function TournamentMenu() {
                     <div
                       className={`px-4 py-2 text-sm font-medium text-gray-600 rounded-full cursor-pointer transition-colors duration-300 hover:bg-gray-200 ${
                         item.isActive
-                          ? "text-white bg-red-600 hover:text-black"
-                          : "text-gray-400 text-black"
+                          ? "text-white bg-red-600 hover:text-red-600"
+                          : "text-gray-600"
                       }`}
                     >
                       <item.Icon
                         className={`mr-2 inline h-4 w-4 transition-transform duration-300 ${
-                          item.isActive ? "text-black" : "text-black"
+                          item.isActive ? "text-red-600" : "text-black"
                         }`}
                       />
                       {item.text}

@@ -1,24 +1,17 @@
-import {
-  MapPin,
-  MenuIcon,
-  MoreVertical,
-  PlusCircle,
-  Search,
-  User,
-} from "lucide-react";
+import { MapPin, MenuIcon, MoreVertical, PlusCircle, Search, User } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { SideMenu } from "../Menu/side-menu";
-import { RightMenu } from "../Menu/right-menu";
-import { DropdownMenu } from "./dropdown-menu";
-import { Button } from "../ui/button";
+import { SideMenu } from "@/components/Menu/side-menu";
+import { RightMenu } from "@/components/Menu/right-menu";
+import { DropdownMenu } from "@/components/Header/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { Avatar } from "../ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 
 export function TournamentHeader() {
   const isMobile = useIsMobile();
 
   return (
-    <header className="border-b h-14 px-4 sm:px-6">
+    <header className="border-b h-14 px-4 sm:px-6 sm:h-16">
       <div className="w-full mx-auto flex justify-between items-center py-2 space-x-6">
         {isMobile ? (
           <div className="w-full flex items-center justify-between">
@@ -53,7 +46,7 @@ export function TournamentHeader() {
                   className="h-full w-full object-contain"
                 />
               </div>
-              <div className="hidden md:flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2 mt-2">
                 <MapPin className="h-4 w-4 text-gray-500" />
                 <p className="text-sm">Latvia</p>
               </div>

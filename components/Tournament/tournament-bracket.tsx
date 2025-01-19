@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import Bracket from "./tournament-matches";
-import { generateBracket } from "../../utils/tournament";
-import { Slider } from "../ui/slider";
+import Bracket from "@/components/Tournament/tournament-matches";
+import { generateBracket } from "@/utils/tournament";
+import { Slider } from "@/components/ui/slider";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { PencilRuler, X } from "lucide-react";
-import { TournamentMenu } from "./tournament-menu";
+import { TournamentMenu } from "@/components/Tournament/tournament-menu";
 
 const bracketSizes = [2, 4, 8, 16, 32];
 
@@ -56,9 +56,9 @@ export const TournamentBracket: React.FC = () => {
               onValueChange={handleSliderChange}
               min={0}
               max={1}
-              className="w-[640px] mx-auto cursor-pointer"
+              className="w-[600px] mx-auto cursor-pointer"
             />
-            <div className="flex justify-between text-sm mt-2 w-[640px] mx-auto w-full">
+            <div className="flex justify-between text-sm mt-2 w-[600px] mx-auto w-full">
               {bracketSizes.map((size) => (
                 <span key={size} className="ml-3">
                   {size}

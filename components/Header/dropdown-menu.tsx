@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 export function DropdownMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
