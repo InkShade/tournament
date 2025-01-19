@@ -22,12 +22,18 @@ export const TournamentBracket: React.FC = () => {
     setBracketSize(bracketSizes[sizeIndex]);
   };
 
-  const sliderValue = bracketSizes.findIndex((size) => size === bracketSize) / (bracketSizes.length - 1);
+  const sliderValue =
+    bracketSizes.findIndex((size) => size === bracketSize) /
+    (bracketSizes.length - 1);
 
   const toggleSliderModal = () => setShowSliderModal(!showSliderModal);
 
   return (
-    <div className={isMobile ? "container mx-auto px-4 py-8" : "container mx-auto px-4"}>
+    <div
+      className={
+        isMobile ? "container mx-auto px-4 py-8" : "container mx-auto px-4"
+      }
+    >
       <div className="flex flex-col md:flex-row">
         {isMobile ? (
           <div className="flex items-center mb-6">
@@ -36,7 +42,10 @@ export const TournamentBracket: React.FC = () => {
               <TournamentMenu />
             </div>
             <div className="hover:bg-gray-200 rounded-lg p-2">
-              <PencilRuler className="cursor-pointer rounded-lg" onClick={toggleSliderModal} />
+              <PencilRuler
+                className="cursor-pointer rounded-lg"
+                onClick={toggleSliderModal}
+              />
             </div>
           </div>
         ) : (
@@ -46,8 +55,8 @@ export const TournamentBracket: React.FC = () => {
         )}
       </div>
 
-      <div className="mb-1 justify-start flex">
-        {!isMobile && (
+      {!isMobile && (
+        <div className="mb-1 justify-start flex">
           <div className="relative justify-between mx-auto bg-white rounded-lg p-4">
             <p className="mb-4">Bracket size</p>
             <Slider
@@ -66,8 +75,8 @@ export const TournamentBracket: React.FC = () => {
               ))}
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       <Bracket matches={matches} />
 
@@ -90,7 +99,10 @@ export const TournamentBracket: React.FC = () => {
                 </span>
               ))}
             </div>
-            <button onClick={toggleSliderModal} className="absolute top-2 right-2 text-lg text-red-500">
+            <button
+              onClick={toggleSliderModal}
+              className="absolute top-2 right-2 text-lg text-red-500"
+            >
               <X className="hover:bg-gray-200 rounded-lg" />
             </button>
           </div>
